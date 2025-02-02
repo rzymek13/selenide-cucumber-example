@@ -5,6 +5,11 @@ pipeline {
             steps {
                 sh 'mvn clean test'
             }
+            post {
+                always {
+                    junit '**/target/cucumber-reports.html'
+                }
+                }
         }
     }
 }

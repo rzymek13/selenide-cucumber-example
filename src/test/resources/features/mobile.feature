@@ -21,22 +21,3 @@ Feature: Buying a smartwatch at T-Mobile
     And cartPage: capture price from feeOnCart
     And Verify that productPrice equals cartPrice
 
-
-
-#  And pause for 5000 seconds
-
-
-
-
-
-
-
-#    And pause for 100000 seconds
-#    When Kliknij "Bez abonamentu" z kolumny "Smartwatche i opaski"
-#    Then Widoczna lista smartfonów
-#    When Kliknij w pierwszy element z listy
-#    Then Widoczna strona produktu
-#    When Dodaj produkt do koszyka
-#    Then Widoczna strona "Twój koszyk" z kwotami "Cena na start" oraz "Rata miesięczna" zgadzającymi się z kwotami z poprzedniej strony
-#    When Przejdź na stronę główną T-Mobile
-#    Then Widoczna strona główna z ikoną koszyka w prawym górnym rogu z liczbą produktów w koszyku
