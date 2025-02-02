@@ -11,7 +11,7 @@ import static com.codeborne.selenide.Selenide.open;
 public class HomePage extends Page {
 
     SelenideElement coockieAcceptButton = $("#didomi-notice-agree-button");
-    SelenideElement logoImage = $(By.xpath("(//*[@data-ma=\"menu-logo\"])[1]"));
+    SelenideElement logoImage = $(By.xpath("(//*[@data-ma=\"menu-logo\"]/*[@id=\"logo-svg\"])[2]"));
     SelenideElement devicesDropdownMenuButton = $(By.xpath("//button[text()=\"Urządzenia\"]"));
     SelenideElement smartwatchesItem = $(By.xpath("//*[@data-ga-ea=\"nav-links - Urządzenia/Bez abonamentu/Smartwatche\"]"));
 
