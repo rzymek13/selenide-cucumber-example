@@ -6,20 +6,23 @@ import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
 @Slf4j
 public class HomePage extends Page {
 
     SelenideElement coockieAcceptButton = $("#didomi-notice-agree-button");
-    SelenideElement logoImage = $(By.xpath("(//*[@data-ma=\"menu-logo\"]/*[@id=\"logo-svg\"])[2]"));
+    SelenideElement logoImage = $(By.xpath("(//*[@data-ma=\"menu-logo\"]/*[@id=\"logo-svg\"])[1]|(//*[@data-ma=\"menu-logo\"]/*[@id=\"logo-svg\"])[2]"));
     SelenideElement devicesDropdownMenuButton = $(By.xpath("//button[text()=\"Urządzenia\"]"));
     SelenideElement smartwatchesItem = $(By.xpath("//*[@data-ga-ea=\"nav-links - Urządzenia/Bez abonamentu/Smartwatche\"]"));
 
 
 
     public void openAppAndAcceptCookies() {
+        getWebDriver().manage().window().maximize();
         open("https://www.t-mobile.pl/");
         coockieAcceptButton.click();
+
     }
 
     @Override
