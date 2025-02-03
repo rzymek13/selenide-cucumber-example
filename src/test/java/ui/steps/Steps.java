@@ -1,8 +1,6 @@
 package ui.steps;
 
 import com.codeborne.selenide.Configuration;
-import com.codeborne.selenide.Driver;
-import com.codeborne.selenide.WebDriverRunner;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -11,7 +9,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
 import ui.pages.*;
 
-import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.clearBrowserCookies;
 import static com.codeborne.selenide.Selenide.open;
 
@@ -27,19 +24,18 @@ public class Steps {
     public void openBrowser() {
         open("https://www.google.com");
         clearBrowserCookies();
-        log.info(Configuration.browserSize);
+        log.info("Browser size = " + Configuration.browserSize);
 
     }
 
-    @When("^Open the (.+) website$")
-    public void openWebsite(String url) throws InterruptedException {
+    @When("^Open the homePage")
+    public void openWebsite() {
         homePage.openAppAndAcceptCookies();
     }
 
     @Then("^(.+): element (.+) (is|is not) displayed$")
     public void isElementDisplayed(String pageName, String elementName, String option) {
         Page page = pageSelector(pageName);
-        log.info(Configuration.browserSize);
 
         Assert.assertEquals("Not on the expected page", page.getPageName(), pageName);
 
@@ -107,4 +103,13 @@ public class Steps {
         Assert.assertEquals("The product fee does not match the cart fee", ProductPage.productFee, CartPage.cartFee);
     }
 
+    @Then("^Amount of products in cart should be equal to one$")
+    public void amountOfProductsInCartShouldBeEqualToOne() {
+        Assert.assertEquals("1",homePage.numberOfProductsInCart.getText());
+    }
+
+    @When("Back to homePage")
+    public void backToHomePage() {
+        open("https://www.t-mobile.pl/");
+    }
 }
