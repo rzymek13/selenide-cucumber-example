@@ -19,7 +19,6 @@ public class HomePage extends Page {
 
 
     public void openAppAndAcceptCookies() {
-        getWebDriver().manage().window().maximize();
         open("https://www.t-mobile.pl/");
         coockieAcceptButton.click();
 

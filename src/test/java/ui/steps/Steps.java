@@ -36,6 +36,7 @@ public class Steps {
     @Then("^(.+): element (.+) (is|is not) displayed$")
     public void isElementDisplayed(String pageName, String elementName, String option) {
         Page page = pageSelector(pageName);
+        log.info(Configuration.browserSize);
 
         Assert.assertEquals("Not on the expected page", page.getPageName(), pageName);
 

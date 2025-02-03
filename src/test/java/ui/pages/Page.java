@@ -11,7 +11,7 @@ import static com.codeborne.selenide.Condition.visible;
 
 @Slf4j
 public abstract class Page {
-    WebDriver driver;
+
 
     public SelenideElement getElement(String elementName) {
         try {
