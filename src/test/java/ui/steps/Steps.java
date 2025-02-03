@@ -22,7 +22,7 @@ public class Steps {
 
     @Given("^Open browser$")
     public void openBrowser() {
-        Configuration.browserSize = "1920x1080";
+        Configuration.browserSize = "2500x1080";
         open("https://www.google.com");
         log.info(Configuration.browserSize);
 
