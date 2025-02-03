@@ -6,7 +6,7 @@ Feature: Buying a smartwatch at T-Mobile
   Scenario: Adding a smartwatch without a subscription to your cart
     Given Open browser
     When Open the t-mobile website
-#    Then homePage: element logoImage is displayed
+    Then homePage: element logoImage is displayed
     When homePage: click on devicesDropdownMenuButton
     Then homePage: element smartwatchesItem is displayed
     When homePage: click on smartwatchesItem
