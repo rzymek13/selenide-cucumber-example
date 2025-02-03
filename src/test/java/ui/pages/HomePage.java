@@ -18,7 +18,7 @@ public class HomePage extends Page {
 
     public void openAppAndAcceptCookies() {
         open("https://www.t-mobile.pl/");
-        if (coockieAcceptButton.isEnabled()) {
+        if (coockieAcceptButton.exists()) {
             log.info("Coockies are accepted");
             coockieAcceptButton.click();
         } else {
