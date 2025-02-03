@@ -1,6 +1,8 @@
 package ui.steps;
 
 import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.Driver;
+import com.codeborne.selenide.WebDriverRunner;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -10,6 +12,7 @@ import org.junit.Assert;
 import ui.pages.*;
 
 import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Selenide.clearBrowserCookies;
 import static com.codeborne.selenide.Selenide.open;
 
 @Slf4j
@@ -23,6 +26,7 @@ public class Steps {
     @Given("^Open browser$")
     public void openBrowser() {
         open("https://www.google.com");
+        clearBrowserCookies();
         log.info(Configuration.browserSize);
 
     }
