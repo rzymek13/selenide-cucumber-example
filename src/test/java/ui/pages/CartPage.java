@@ -15,10 +15,12 @@ public class CartPage extends Page {
     SelenideElement cartTitle = $(By.xpath("//h1"));
     SelenideElement productPriceOnCart = $(By.xpath("//*[@data-qa=\"BKT_TotalupFront\"]"));
     SelenideElement feeOnCart = $(By.xpath("//*[@data-qa=\"BKT_TotalMonthly\"]"));
+
     @Override
     public String getPageName() {
         return "cartPage";
     }
+
     public void captureCartPrice() {
         cartPrice = productPriceOnCart.getText().replaceAll("[^\\d.]", "");
         log.info("Captured product price in cart: " + cartPrice);

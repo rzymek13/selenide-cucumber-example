@@ -25,7 +25,7 @@ public class Steps {
         open("https://www.google.com");
         clearBrowserCookies();
         log.info("Browser size = " + Configuration.browserSize);
-
+        log.info("Browser name = " + Configuration.browser);
     }
 
     @When("^Open the homePage")
@@ -105,7 +105,7 @@ public class Steps {
 
     @Then("^Amount of products in cart should be equal to one$")
     public void amountOfProductsInCartShouldBeEqualToOne() {
-        Assert.assertEquals("1",homePage.numberOfProductsInCart.getText());
+        Assert.assertEquals("1", homePage.numberOfProductsInCart.getText());
     }
 
     @When("Back to homePage")
