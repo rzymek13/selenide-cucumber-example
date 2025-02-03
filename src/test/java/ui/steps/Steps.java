@@ -9,7 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
 import ui.pages.*;
 
-import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Selenide.clearBrowserCookies;
 import static com.codeborne.selenide.Selenide.open;
 
 @Slf4j
@@ -23,12 +23,13 @@ public class Steps {
     @Given("^Open browser$")
     public void openBrowser() {
         open("https://www.google.com");
-        Configuration.browserSize = "1920x1080";
-
+        clearBrowserCookies();
+        log.info("Browser size = " + Configuration.browserSize);
+        log.info("Browser name = " + Configuration.browser);
     }
 
-    @When("^Open the (.+) website$")
-    public void openWebsite(String url) throws InterruptedException {
+    @When("^Open the homePage")
+    public void openWebsite() {
         homePage.openAppAndAcceptCookies();
     }
 
@@ -102,4 +103,13 @@ public class Steps {
         Assert.assertEquals("The product fee does not match the cart fee", ProductPage.productFee, CartPage.cartFee);
     }
 
+    @Then("^Amount of products in cart should be equal to one$")
+    public void amountOfProductsInCartShouldBeEqualToOne() {
+        Assert.assertEquals("1", homePage.numberOfProductsInCart.getText());
+    }
+
+    @When("Back to homePage")
+    public void backToHomePage() {
+        open("https://www.t-mobile.pl/");
+    }
 }
