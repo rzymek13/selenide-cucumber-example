@@ -19,7 +19,7 @@ public class HomePage extends Page {
 
     public void openAppAndAcceptCookies() {
         open("https://www.t-mobile.pl/");
-        coockieAcceptButton.click();
+//        coockieAcceptButton.click();
 
     }
 
