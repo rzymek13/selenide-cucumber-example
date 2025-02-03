@@ -40,7 +40,7 @@ public class CurrencyRatesSteps {
     }
     @Then("^show exchange rates for currency with code: (.+)$")
     public void showExchangeRatesForCurrencyWithCode(String currencyCode) {
-        log.info("\n" + "Retrieved exchange rates for currency with code " + currencyCode + ":");
+        log.info("\nRetrieved exchange rates for currency with code " + currencyCode + ":");
         rates.stream()
                 .filter(rate -> currencyCode.equals(rate.getCode()))
                 .forEach(rate -> log.info( "Currency Code: " +rate.getCode() + " Rate: " + rate.getMidValue()));
@@ -48,7 +48,7 @@ public class CurrencyRatesSteps {
 
     @Then("^show exchange rates for currency with name: (.+)$")
     public void showExchangeRatesForCurrencyWithName(String currencyName) {
-        log.info("\n" + "Retrieved exchange rates for currency with name " + currencyName + ":");
+        log.info("\nRetrieved exchange rates for currency with name " + currencyName + ":");
         rates.stream()
                 .filter(rate -> currencyName.equals(rate.getCurrency()))
                 .forEach(rate -> log.info( "Currency Code: " +rate.getCode() + " Rate: " + rate.getMidValue()));
@@ -58,19 +58,19 @@ public class CurrencyRatesSteps {
     public void showCurrenciesWithRate(String option, double threshold) {
         switch(option){
             case "less":
-                log.info("\n" + "Retrieved exchange rates with rate less than " + threshold);
+                log.info("\nRetrieved exchange rates with rate less than " + threshold);
                 rates.stream()
                         .filter(rate -> rate.getMidValue() < threshold)
                         .forEach(rate -> log.info(rate.toString()));
                 break;
             case "more":
-                log.info("\n" + "Retrieved exchange rates with rate more than " + threshold);
+                log.info("\nRetrieved exchange rates with rate more than " + threshold);
                 rates.stream()
                         .filter(rate -> rate.getMidValue() > threshold)
                         .forEach(rate -> log.info(rate.toString()));
                 break;
             case "equals":
-                log.info("\n" + "Retrieved exchange rates with rate equal to " + threshold);
+                log.info("\nRetrieved exchange rates with rate equal to " + threshold);
                 rates.stream()
                         .filter(rate -> rate.getMidValue() == threshold)
                         .forEach(rate -> log.info(rate.toString()));
