@@ -12,8 +12,8 @@ public class HomePage extends Page {
 
     private static final String HOME_URL = "https://www.t-mobile.pl/";
 
-    public SelenideElement numberOfProductsInCart = $(By.xpath("(//a[@data-ma=\"menu-basket\"]//div)[1]"));
-    SelenideElement logoImage = $(By.xpath("(//*[@data-ma=\"menu-logo\"]/*[@id=\"logo-svg\"])[1]|(//*[@data-ma=\"menu-logo\"]/*[@id=\"logo-svg\"])[2]"));
+    public SelenideElement numberOfProductsInCart = $(By.xpath("//div[@class=\"ml-auto flex lg:mt-auto group-[.shrank-header]/header:lg:mt-0\"]//a[@data-ma=\"menu-basket\"]//div"));
+    SelenideElement logoImage = $(By.xpath("//div[@class=\"container mx-auto lg:px-6 max-lg:hidden\"]//*[@id=\"logo-svg\"]"));
     SelenideElement coockieAcceptButton = $("#didomi-notice-agree-button");
     SelenideElement devicesDropdownMenuButton = $(By.xpath("//button[text()=\"Urządzenia\"]"));
     SelenideElement smartwatchesItem = $(By.xpath("//*[@data-ga-ea=\"nav-links - Urządzenia/Bez abonamentu/Smartwatche\"]"));
