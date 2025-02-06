@@ -1,3 +1,4 @@
+@mobile
 Feature: Buying a smartwatch at T-Mobile
   As a T-Mobile user
   I want to add a smartphone to my cart

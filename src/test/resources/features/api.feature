@@ -1,3 +1,4 @@
+@nbp
 Feature: Currency Rates
 
   Scenario: Kursy walut
