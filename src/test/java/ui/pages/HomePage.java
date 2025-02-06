@@ -10,6 +10,8 @@ import static com.codeborne.selenide.Selenide.open;
 @Slf4j
 public class HomePage extends Page {
 
+    private static final String HOME_URL = "https://www.t-mobile.pl/";
+
     public SelenideElement numberOfProductsInCart = $(By.xpath("(//a[@data-ma=\"menu-basket\"]//div)[1]"));
     SelenideElement logoImage = $(By.xpath("(//*[@data-ma=\"menu-logo\"]/*[@id=\"logo-svg\"])[1]|(//*[@data-ma=\"menu-logo\"]/*[@id=\"logo-svg\"])[2]"));
     SelenideElement coockieAcceptButton = $("#didomi-notice-agree-button");
@@ -17,7 +19,7 @@ public class HomePage extends Page {
     SelenideElement smartwatchesItem = $(By.xpath("//*[@data-ga-ea=\"nav-links - Urządzenia/Bez abonamentu/Smartwatche\"]"));
 
     public void openAppAndAcceptCookies() {
-        open("https://www.t-mobile.pl/");
+        open(HOME_URL);
         if (coockieAcceptButton.exists()) {
             log.info("Coockies are accepted");
             coockieAcceptButton.click();

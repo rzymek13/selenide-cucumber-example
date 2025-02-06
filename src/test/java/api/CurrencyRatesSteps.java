@@ -6,78 +6,81 @@ import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
+
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-
 @Slf4j
 public class CurrencyRatesSteps {
+    private static final String EXCHANGE_RATES_URL = "http://api.nbp.pl/api/exchangerates/tables/A?format=json";
     private Response response;
     private List<CurrencyRate> rates;
 
     @Given("^Retrieve exchange rates$")
     public void retrieveExchangeRates() {
         log.info("Starting to retrieve exchange rates");
-        response = RestAssured.get("http://api.nbp.pl/api/exchangerates/tables/A?format=json");
-        Assert.assertEquals(200, response.getStatusCode());
-        log.info("Response code " + response.getStatusCode());
+        response = RestAssured.get(EXCHANGE_RATES_URL);
+        Assert.assertEquals("Unexpected response status", 200, response.getStatusCode());
+        log.info("Response code {}", response.getStatusCode());
 
-        rates = response.jsonPath().getList("[0].rates").stream()
-                .map(rate -> {
-                    Map<String, Object> rateMap = (Map<String, Object>) rate;
-                    return new CurrencyRate(
-                            (String) rateMap.get("currency"),
-                            (String) rateMap.get("code"),
-                            ((Number) rateMap.get("mid")).doubleValue());
-                })
+        rates = parseRatesFromResponse(response);
+    }
+
+    private List<CurrencyRate> parseRatesFromResponse(Response response) {
+        return response.jsonPath().getList("[0].rates").stream()
+                .map(this::mapToCurrencyRate)
                 .collect(Collectors.toList());
     }
+
+    private CurrencyRate mapToCurrencyRate(Object rate) {
+        Map<String, Object> rateMap = (Map<String, Object>) rate;
+        return new CurrencyRate(
+                (String) rateMap.get("currency"),
+                (String) rateMap.get("code"),
+                ((Number) rateMap.get("mid")).doubleValue());
+    }
+
     @Then("^Show all data$")
     public void showAllData() {
-        log.info("All exchange rates:\n");
-        rates.forEach(rate -> log.info(rate.toString() + "\n"));
+        log.info("All exchange rates:");
+        rates.forEach(rate -> log.info(rate.toString()));
     }
+
     @Then("^show exchange rates for currency with code: (.+)$")
     public void showExchangeRatesForCurrencyWithCode(String currencyCode) {
-        log.info("\nRetrieved exchange rates for currency with code " + currencyCode + ":");
+        log.info("Retrieved exchange rates for currency with code {}:", currencyCode);
         rates.stream()
                 .filter(rate -> currencyCode.equals(rate.getCode()))
-                .forEach(rate -> log.info( "Currency Code: " +rate.getCode() + " Rate: " + rate.getMidValue()));
+                .forEach(rate -> log.info("Currency Code: {} Rate: {}", rate.getCode(), rate.getMidValue()));
     }
 
     @Then("^show exchange rates for currency with name: (.+)$")
     public void showExchangeRatesForCurrencyWithName(String currencyName) {
-        log.info("\nRetrieved exchange rates for currency with name " + currencyName + ":");
+        log.info("Retrieved exchange rates for currency with name {}:", currencyName);
         rates.stream()
                 .filter(rate -> currencyName.equals(rate.getCurrency()))
-                .forEach(rate -> log.info( "Currency Code: " +rate.getCode() + " Rate: " + rate.getMidValue()));
+                .forEach(rate -> log.info("Currency Code: {} Rate: {}", rate.getCode(), rate.getMidValue()));
     }
 
     @Then("^Show currencies with rate (less|more|equals) than (\\d+\\.\\d+)$")
     public void showCurrenciesWithRate(String option, double threshold) {
-        switch(option){
+        log.info("Retrieved exchange rates with rate {} than {}", option, threshold);
+        rates.stream()
+                .filter(rate -> filterRatesByOption(rate, option, threshold))
+                .forEach(rate -> log.info(rate.toString()));
+    }
+
+    private boolean filterRatesByOption(CurrencyRate rate, String option, double threshold) {
+        switch (option) {
             case "less":
-                log.info("\nRetrieved exchange rates with rate less than " + threshold);
-                rates.stream()
-                        .filter(rate -> rate.getMidValue() < threshold)
-                        .forEach(rate -> log.info(rate.toString()));
-                break;
+                return rate.getMidValue() < threshold;
             case "more":
-                log.info("\nRetrieved exchange rates with rate more than " + threshold);
-                rates.stream()
-                        .filter(rate -> rate.getMidValue() > threshold)
-                        .forEach(rate -> log.info(rate.toString()));
-                break;
+                return rate.getMidValue() > threshold;
             case "equals":
-                log.info("\nRetrieved exchange rates with rate equal to " + threshold);
-                rates.stream()
-                        .filter(rate -> rate.getMidValue() == threshold)
-                        .forEach(rate -> log.info(rate.toString()));
-                break;
+                return rate.getMidValue() == threshold;
             default:
                 throw new IllegalArgumentException("Invalid option: " + option);
         }
     }
-
 }

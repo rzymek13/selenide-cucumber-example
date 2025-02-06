@@ -15,20 +15,22 @@ import static com.codeborne.selenide.Selenide.open;
 @Slf4j
 public class Steps {
 
-    HomePage homePage = new HomePage();
-    SmartwatchesPage smartwatchesPage = new SmartwatchesPage();
-    ProductPage productPage = new ProductPage();
-    CartPage cartPage = new CartPage();
+    private static final String GOOGLE_URL = "https://www.google.com";
+
+    private final HomePage homePage = new HomePage();
+    private final SmartwatchesPage smartwatchesPage = new SmartwatchesPage();
+    private final ProductPage productPage = new ProductPage();
+    private final CartPage cartPage = new CartPage();
 
     @Given("^Open browser$")
     public void openBrowser() {
-        open("https://www.google.com");
+        open(GOOGLE_URL);
         clearBrowserCookies();
-        log.info("Browser size = " + Configuration.browserSize);
-        log.info("Browser name = " + Configuration.browser);
+        log.info("Browser size = {}", Configuration.browserSize);
+        log.info("Browser name = {}", Configuration.browser);
     }
 
-    @When("^Open the homePage")
+    @When("^Open the homePage$")
     public void openWebsite() {
         homePage.openAppAndAcceptCookies();
     }
@@ -49,8 +51,7 @@ public class Steps {
         }
     }
 
-
-    @When("^(.+): click on (.+)")
+    @When("^(.+): click on (.+)$")
     public void clickElement(String pageName, String elementName) {
         Page page = pageSelector(pageName);
         page.getElement(elementName).click();
@@ -73,9 +74,8 @@ public class Steps {
 
     @And("^pause for (.+) seconds$")
     public void pauseForSeconds(int seconds) throws InterruptedException {
-        Thread.sleep(seconds * 1000); // Convert seconds to milliseconds
+            Thread.sleep(seconds * 1000);
     }
-
 
     @Then("^productPage: capture price from productPriceOnProductPage$")
     public void captureProductPrice() {
